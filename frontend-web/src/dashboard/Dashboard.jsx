@@ -1,18 +1,17 @@
 import { Outlet } from "react-router-dom";
-
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
-import "./Dashboard.css"
+import "./Dashboard.css";
 
 export default function Dashboard() {
     return (
-        <div className="min-vh-100 d-flex flex-column">
+        <div className="dashboard">
             <TopBar />
 
-            <div className="d-flex flex-grow-1">
+            <div className="dashboard-body">
                 <SideBar />
 
-                <main className="flex-grow-1 p-4">
+                <main className="dashboard-content">
                     <Outlet />
                 </main>
             </div>
