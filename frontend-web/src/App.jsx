@@ -8,7 +8,7 @@ import OnboardWelcomePage from "./onboard/WelcomePage";
 import OnboardingRoute from "./route/OnboardingRoute";
 import HouseholdPage from "./onboard/HouseholdPage";
 import MembersPage from "./onboard/MembersPage";
-import Dashboard from "./dashboard/Dashboard";
+import { Dashboard, DashboardHome } from "./dashboard";
 
 function App() {
     return (
@@ -26,7 +26,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/dashboard" element={<Dashboard />}>
-                    <Route index element={<h1>Dashboard</h1>} />
+                    <Route index element={<DashboardHome />} />
                     <Route path="household" element={<h1>Household</h1>} />
                     <Route path="recipes" element={<h1>Recipes</h1>} />
                     <Route path="meal-plan" element={<h1>Meal Plan</h1>} />
