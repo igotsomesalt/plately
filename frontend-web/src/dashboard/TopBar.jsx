@@ -1,7 +1,11 @@
 import { Bell, ChevronDown } from "lucide-react";
+import { useAuth } from "../auth/AuthContext"; 
 import "./Dashboard.css"
 
 export default function TopBar() {
+
+    const { user } = useAuth();
+
     return (
         <header className="top-bar">
             <div className="top-bar-brand">
@@ -22,11 +26,11 @@ export default function TopBar() {
                     className="top-bar-user"
                 >
                     <span className="top-bar-avatar">
-                        B
+                        {user.name.charAt(0)}
                     </span>
 
                     <span className="top-bar-username">
-                        Burke
+                        {user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase()}
                     </span>
 
                     <ChevronDown size={16} />
