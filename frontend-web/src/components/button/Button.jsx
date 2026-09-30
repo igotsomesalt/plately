@@ -1,15 +1,15 @@
-import "./Button.css"
+import "./Button.css";
 
 export default function Button({
     children,
-    variant,
-    type,
+    variant = "plately",
+    type = "button",
     onClick,
-    className=""
+    className = ""
 }) {
     return (
         <button
-            className={`button button-${variant} ${className}`}
+            className={`btn btn-${variant} ${className}`}
             type={type}
             onClick={onClick}
         >

@@ -13,18 +13,57 @@ export default function OnboardingRoute() {
         return <Navigate to="/login" replace />;
     }
 
-    const stepToPath = {
-        WELCOME: "/onboard/welcome",
-        NAME: "/onboard/name",
-        HOUSEHOLD: "/onboard/household",
-        MEMBERS: "/onboard/household/members",
-        COMPLETED: "/dashboard"
-    };
+    const steps = [
+        {
+            step: "WELCOME",
+            path: "/onboard/welcome",
+        },
+        {
+            step: "NAME",
+            path: "/onboard/name",
+        },
+        {
+            step: "HOUSEHOLD",
+            path: "/onboard/household",
+        },
+        {
+            step: "MEMBERS",
+            path: "/onboard/household/members",
+        },
+    ];
 
-    const expectedPath = stepToPath[user.onboardStep];
+    if (user.onboardStep === "COMPLETED") {
+        return <Navigate to="/dashboard" replace />;
+    }
 
-    if (location.pathname !== expectedPath) {
-        return <Navigate to={expectedPath} replace />;
+    const currentStepIndex = steps.findIndex(
+        (step) => step.step === user.onboardStep
+    );
+
+    const currentPathIndex = steps.findIndex(
+        (step) => step.path === location.pathname
+    );
+
+    if (currentStepIndex === -1) {
+        return <Navigate to="/onboard/welcome" replace />;
+    }
+
+    if (currentPathIndex === -1) {
+        return (
+            <Navigate
+                to={steps[currentStepIndex].path}
+                replace
+            />
+        );
+    }
+
+    if (currentPathIndex > currentStepIndex) {
+        return (
+            <Navigate
+                to={steps[currentStepIndex].path}
+                replace
+            />
+        );
     }
 
     return <Outlet />;

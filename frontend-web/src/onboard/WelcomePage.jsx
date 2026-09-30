@@ -1,15 +1,50 @@
-import { Button } from "../components/button";
 import { useNavigate } from "react-router-dom";
-import "../style/layouts.css";
-import "./Onboard.css"
-import { updateName } from "../user/userApi";
+import { useAuth } from "../auth/AuthContext";
+import OnboardLayout from "./OnboardLayout";
+import OnboardProgress from "./OnboardProgress";
 import { completeWelcome } from "./onboardApi";
-import WelcomeCard from "./WelcomeCard";
+import { Button } from "../components/button";
 
-export default function OnboardWelcomePage() {
+export default function WelcomePage() {
+    const navigate = useNavigate();
+    const { refreshUser } = useAuth();
+
+    async function onClick() {
+        try {
+            await completeWelcome();
+            refreshUser();
+            navigate("/onboard/name");
+        }
+
+        catch (e) {
+            console.log(e.message);
+        }
+    }
+
     return (
-        <div className="centered-page"> 
-            <WelcomeCard/>
-        </div>
-    );  
+        <OnboardLayout>
+            <OnboardProgress currentStep={1} />
+
+            <div className="text-center">
+                <div className="mb-4">
+                    <h1 className="fw-bold mb-3">
+                        Welcome to Plately
+                    </h1>
+
+                    <p className="text-secondary mb-0">
+                        Let's build your household profile so we can
+                        create meal plans and shopping lists that fit
+                        your needs.
+                    </p>
+                </div>
+
+                <Button
+                    className="w-100"
+                    onClick={onClick}
+                >
+                    Get Started
+                </Button>
+            </div>
+        </OnboardLayout>
+    );
 }

@@ -20,6 +20,6 @@ export async function addMember(member) {
     await api.post("/onboard/household/add", member);
 }
 
-export async function finish(member) {
+export async function finish() {
     await api.post("/onboard/finish");
 }

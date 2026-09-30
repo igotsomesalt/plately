@@ -1,0 +1,14 @@
+.option-plately {
+    color: var(--text) !important;
+    background-color: white !important;
+}
+
+.option-plately:checked {
+    color: white !important;
+    background-color: var(--accent) !important;
+}
+
+option:hover {
+    background-color: red !important;
+    color: white !important;
+}

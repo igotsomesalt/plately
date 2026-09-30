@@ -1,21 +1,22 @@
-import "../style/layouts.css"
-import "./Onboard.css"
-
 import { useState } from "react";
-import { Card } from "../components/card";
-import { Form } from "../components/form";
-import { Button } from "../components/button";
-import { useAuth } from "../auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../auth/AuthContext";
+import OnboardLayout from "./OnboardLayout";
+import OnboardProgress from "./OnboardProgress";
 import { updateName } from "./onboardApi";
+import Input from "../components/input/Input";
+import { Button } from "../components/button";
 
-export default function OnboardNamePage() {
-    const [ name, setName ] = useState("");
-    const [ error, setError ] = useState("");
-    const { refreshUser } = useAuth();
+export default function NamePage() {
     const navigate = useNavigate();
 
-    async function onSubmit(event) {
+    const [name, setName] = useState("");
+    const [error, setError] = useState("");
+
+    
+    const { refreshUser } = useAuth();
+
+    async function handleSubmit(event) {
         event.preventDefault();
 
         setName(name.trim());
@@ -36,9 +37,12 @@ export default function OnboardNamePage() {
         }
 
         try { 
-            const response = await updateName(name);
+            await updateName(name);
+            console.log("updated name");
             refreshUser();
+            console.log("refreshed user");
             navigate("/onboard/household");
+            console.log("navigated");
         }
         catch (e) {
             setError("Something went wrong");
@@ -46,24 +50,61 @@ export default function OnboardNamePage() {
     }
 
     return (
-        <div className="centered-page name-page">
-            <h1>First, your name</h1>
-            
+        <OnboardLayout>
+            <OnboardProgress currentStep={2} />
 
-            <Form onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    placeholder="Enter your name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
+            <div className="mb-4">
+                <h1 className="fw-bold mb-2">
+                    What's your name?
+                </h1>
 
-                <Button type="submit" className="full-width">next</Button>
-            </Form>
+                <p className="text-secondary mb-0">
+                    We'll use this to personalize your Plately experience.
+                </p>
+            </div>
 
-            
-            {error && <p style={{ color: "red" }}>{error}</p>}
+            <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                    <label htmlFor="name" className="form-label fw-semibold">
+                        Name
+                    </label>
 
-        </div>
+                    <Input
+                        id="name"
+                        type="text"
+                        className={` ${
+                            error ? "is-invalid" : ""
+                        }`}
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        placeholder="Enter your name"
+                        autoFocus
+                    />
+
+                    {error && (
+                        <div className="invalid-feedback">
+                            {error}
+                        </div>
+                    )}
+                </div>
+
+                <div className="d-flex gap-2">
+                    <Button
+                        type="button"
+                        variant="outline-secondary"
+                        onClick={() => navigate("/onboard/welcome")}
+                    >
+                        Back
+                    </Button>
+
+                    <Button
+                        type="submit"
+                        className="flex-grow-1"
+                    >
+                        Continue
+                    </Button>
+                </div>
+            </form>
+        </OnboardLayout>
     );
 }
