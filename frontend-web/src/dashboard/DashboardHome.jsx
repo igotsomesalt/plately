@@ -2,16 +2,25 @@ import { CalendarDays, ShoppingCart, Users, Plus } from "lucide-react";
 import { Card } from "../components/card";
 import { useAuth } from "../auth/AuthContext";
 
+const greetingRanges = [
+  { min: 5,  max: 11, greeting: "Good morning" },
+  { min: 12, max: 16, greeting: "Good day" },
+  { min: 17, max: 21, greeting: "Good afternoon" },
+  { min: 0,  max: 23, greeting: "Good evening" } 
+];
+
 export default function DashboardHome() {
     const { user } = useAuth();
+    const currentHour = new Date().getHours(); 
+    const match = greetingRanges.find(range => currentHour >= range.min && currentHour <= range.max);
 
     return (
         <div className="container-fluid">
 
             {/* Greeting */}
             <div className="mb-4">
-                <h1 className="h3 mb-1">Good afternoon, {
-                    user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase()
+                <h1 className="h3 mb-1"> {match.greeting}, {
+                        user.name.charAt(0).toUpperCase() + user.name.slice(1).toLowerCase()
                 }!</h1>
                 <p className="text-muted mb-0">
                     Here's what's happening with your household.
