@@ -1,19 +1,19 @@
-import api from "../api";
+import { api } from "../api/axiosConfig";
 
 // Household info
 export async function getHousehold() {
-    const response = await api.get("/api/household/info");
+    const response = await api.get("/household/info");
     return response.data;
 }
 
 // Household name
 export async function getHouseholdName() {
-    const response = await api.get("/api/household/name");
+    const response = await api.get("/household/name");
     return response.data;
 }
 
 export async function updateHouseholdName(name) {
-    const response = await api.patch("/api/household/name", {
+    const response = await api.patch("/household/name", {
         name
     });
     return response.data;
@@ -21,12 +21,12 @@ export async function updateHouseholdName(name) {
 
 // Household budget
 export async function getHouseholdBudget() {
-    const response = await api.get("/api/household/budget");
+    const response = await api.get("/household/budget");
     return response.data;
 }
 
 export async function updateHouseholdBudget(weeklyBudget) {
-    const response = await api.patch("/api/household/budget", {
+    const response = await api.patch("/household/budget", {
         weeklyBudget
     });
     return response.data;
@@ -34,20 +34,20 @@ export async function updateHouseholdBudget(weeklyBudget) {
 
 // Members
 export async function getMembers() {
-    const response = await api.get("/api/household/members");
+    const response = await api.get("/household/members");
     return response.data;
 }
 
 export async function getMember(memberId) {
     const response = await api.get(
-        `/api/household/members/${memberId}`
+        `/household/members/${memberId}`
     );
     return response.data;
 }
 
 export async function addMember(member) {
     const response = await api.post(
-        "/api/household/members",
+        "/household/members",
         member
     );
     return response.data;
@@ -55,7 +55,7 @@ export async function addMember(member) {
 
 export async function updateMember(memberId, member) {
     const response = await api.put(
-        `/api/household/members/${memberId}`,
+        `/household/members/${memberId}`,
         member
     );
     return response.data;
