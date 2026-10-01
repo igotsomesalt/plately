@@ -19,22 +19,22 @@ const navigation = [
     {
         label: "Household",
         icon: Users,
-        path: "/household",
+        path: "/dashboard/household",
     },
     {
         label: "Recipes",
         icon: Utensils,
-        path: "/recipes",
+        path: "/dashboard/recipes",
     },
     {
         label: "Meal Plan",
         icon: CalendarDays,
-        path: "/meal-plan",
+        path: "/dashboard/meal-plan",
     },
     {
         label: "Shopping List",
         icon: ShoppingCart,
-        path: "/shopping",
+        path: "/dashboard/shopping",
     },
 ];
 
@@ -62,7 +62,7 @@ export default function SideBar() {
 
             <div className="side-bar-bottom">
                 <NavLink
-                    to="/settings"
+                    to="/dashboard/settings"
                     className={({ isActive }) =>
                         `side-bar-link ${isActive ? "active" : ""}`
                     }
